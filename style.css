@@ -1,0 +1,56 @@
+/* Greeting Section */
+#greetingContainer {
+  margin: 20px;
+  text-align: center;
+}
+
+/* Explain Button */
+#explainQuoteBtn {
+  margin-top: 8px;
+  padding: 6px 12px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#explainQuoteBtn:hover {
+  background-color: #45a049;
+}
+
+/* Quote Explanation */
+#quoteExplanation {
+  margin-top: 8px;
+  font-style: italic;
+  color: #333;
+}
+
+/* Share Buttons */
+#shareButtons {
+  margin-top: 12px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+#shareButtons a {
+  text-decoration: none;
+  padding: 6px 10px;
+  background-color: #008CBA;
+  color: white;
+  border-radius: 6px;
+  font-size: 0.9em;
+}
+
+#shareButtons a:hover {
+  background-color: #007B9E;
+}
+
+/* Responsive */
+@media screen and (max-width: 600px) {
+  #shareButtons {
+    flex-direction: column;
+    gap: 6px;
+  }
+}
