@@ -147,7 +147,7 @@ const dailyQuotes = [
   "Do not be overcome by evil, but overcome evil with good. – Romans 12:21",
   "The Lord is near to all who call on Him. – Psalm 145:18",
   "You keep him in perfect peace whose mind is stayed on you. – Isaiah 26:3",
-  "Wait for the Lord; be strong, and let your heart take courage. – Psalm 27:14"
+  "Wait for the Lord; be strong, and let your heart take courage. – Psalm 27:14",
   "The Lord is gracious and merciful, slow to anger and abounding in steadfast love. – Psalm 145:8",
   "Come to me, all who labor and are heavy laden, and I will give you rest. – Matthew 11:28",
   "Peace I leave with you; my peace I give to you. – John 14:27",
@@ -246,4 +246,5 @@ updateDate();
 setInterval(updateClock, 1000);
 setInterval(updateGreeting, 60000);
 setInterval(updateDate, 60000);
+
 
