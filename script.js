@@ -18,7 +18,7 @@ let currentBackground = "";
 
 // ----- Bible Verses & Quotes -----
 const versesMorning = [
-  "Psalm 5:3 - In the morning, Lord, you hear my voice.",
+ "Psalm 5:3 - In the morning, Lord, you hear my voice.",
   "Lamentations 3:22-23 - The Lord’s mercies are new every morning.",
   "Psalm 59:16 - I will sing of your strength in the morning.",
   "Philippians 4:4 - Rejoice in the Lord always; again I will say, rejoice.",
@@ -97,10 +97,11 @@ const versesMorning = [
   "Psalm 119:81 - My soul longs for your salvation; I hope in your word.",
   "Psalm 147:11 - The Lord takes pleasure in those who fear him, in those who hope in his steadfast love.",
   "Psalm 119:166 - I hope for your salvation, O Lord, and I do your commandments."
+  // Add more verses here
 ];
 
 const versesDay = [
-  "Psalm 118:24 - This is the day the Lord has made; rejoice and be glad.",
+   "Psalm 118:24 - This is the day the Lord has made; rejoice and be glad.",
   "Colossians 3:23 - Whatever you do, work heartily.",
   "Proverbs 16:3 - Commit your work to the Lord.",
   "Micah 6:8 - He has told you, O man, what is good; and what does the Lord require of you but to do justice, and to love kindness, and to walk humbly with your God?",
@@ -170,6 +171,7 @@ const versesDay = [
   "Psalm 119:130 - The unfolding of your words gives light; it imparts understanding to the simple.",
   "Proverbs 21:21 - Whoever pursues righteousness and kindness will find life, righteousness, and honor.",
   "2 Thessalonians 3:13 - As for you, brothers, do not grow weary in doing good."
+  // Add more verses here
 ];
 
 const versesAfternoon = [
@@ -246,10 +248,11 @@ const versesAfternoon = [
   "Psalm 119:105 - Your word is a lamp to my feet and a light to my path.",
   "2 Timothy 2:3 - Share in suffering as a good soldier of Christ Jesus.",
   "Psalm 18:1 - I love you, O Lord, my strength."
+  // Add more verses here
 ];
 
 const versesEvening = [
-  "Psalm 141:2 - May my prayer be set before you like incense; may the lifting up of my hands be like the evening sacrifice.",
+   "Psalm 141:2 - May my prayer be set before you like incense; may the lifting up of my hands be like the evening sacrifice.",
   "Psalm 119:148 - My eyes are awake before the watches of the night, that I may meditate on your promise.",
   "Psalm 63:6 - When I remember you upon my bed, and meditate on you in the watches of the night.",
   "Psalm 34:8 - Oh, taste and see that the Lord is good! Blessed is the man who takes refuge in him!",
@@ -318,10 +321,11 @@ const versesEvening = [
   "Psalm 119:24 - Your testimonies are my delight; they are my counselors.",
   "Psalm 145:18 - The Lord is near to all who call on him, to all who call on him in truth.",
   "Psalm 116:1-2 - I love the Lord, because he has heard my voice and my pleas for mercy. Because he inclined his ear to me, therefore I will call on him as long as I live."
+  // Add more verses here
 ];
 
 const versesNight = [
-  "Psalm 4:8 - In peace I will both lie down and sleep; for you alone, O Lord, make me dwell in safety.",
+   "Psalm 4:8 - In peace I will both lie down and sleep; for you alone, O Lord, make me dwell in safety.",
   "Psalm 91:1-2 - He who dwells in the shelter of the Most High will abide in the shadow of the Almighty. I will say to the Lord, 'My refuge and my fortress, my God, in whom I trust.'",
   "Proverbs 3:24 - When you lie down, you will not be afraid; when you lie down, your sleep will be sweet.",
   "Psalm 23:1-2 - The Lord is my shepherd; I shall not want. He makes me lie down in green pastures. He leads me beside still waters.",
@@ -422,6 +426,7 @@ const versesNight = [
   "Psalm 116:7-8 - Return, O my soul, to your rest; for the Lord has dealt bountifully with you. For you have delivered my soul from death.",
   "Psalm 121:3 - He will not let your foot be moved; he who keeps you will not slumber.",
   "Psalm 91:3 - For he will deliver you from the snare of the fowler and from the deadly pestilence."
+  // Add more verses here
 ];
 
 const dailyQuotes = [
@@ -577,6 +582,10 @@ function getDailyQuote() {
   return dailyQuotes[today.getDate() % dailyQuotes.length];
 }
 
+function encodeShareText(text) {
+  return encodeURIComponent(text);
+}
+
 // ----- Update Greeting -----
 function updateGreeting() {
   const hour = new Date().getHours();
@@ -645,6 +654,15 @@ function updateDate() {
 // ----- Event Listeners -----
 const nameInput = document.getElementById("nameInput");
 const resetButton = document.getElementById("resetButton");
+const shareButton = document.getElementById("shareButton");
+const shareModal = document.getElementById("shareModal");
+const shareDevice = document.getElementById("shareDevice");
+const shareWhatsApp = document.getElementById("shareWhatsApp");
+const shareTwitter = document.getElementById("shareTwitter");
+const shareFacebook = document.getElementById("shareFacebook");
+const shareTikTok = document.getElementById("shareTikTok");
+const copyVerse = document.getElementById("copyVerse");
+const closeModal = document.getElementById("closeModal");
 
 if (nameInput) {
   nameInput.addEventListener("input", (e) => {
@@ -668,6 +686,98 @@ if (resetButton) {
     userName = "";
     if (nameInput) nameInput.value = "";
     updateGreeting();
+  });
+}
+
+if (shareButton) {
+  shareButton.addEventListener("click", () => {
+    if (shareModal) shareModal.style.display = "block";
+  });
+}
+
+if (closeModal) {
+  closeModal.addEventListener("click", () => {
+    if (shareModal) shareModal.style.display = "none";
+  });
+}
+
+// Close modal if clicking outside content
+window.addEventListener("click", (event) => {
+  if (event.target === shareModal) {
+    shareModal.style.display = "none";
+  }
+});
+
+// Get share text
+function getShareText() {
+  const verseElement = document.getElementById("verse");
+  if (verseElement) {
+    return `${verseElement.innerText}\n\nFrom Greeter Bible App: ${window.location.href}`;
+  }
+  return "";
+}
+
+if (shareDevice) {
+  shareDevice.addEventListener("click", async () => {
+    const shareData = {
+      title: "Greeter Bible Verse",
+      text: getShareText(),
+      url: window.location.href
+    };
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+      } catch (err) {
+        console.error("Share failed:", err);
+      }
+    } else {
+      alert("Device sharing not supported in this browser.");
+    }
+  });
+}
+
+if (shareWhatsApp) {
+  shareWhatsApp.addEventListener("click", () => {
+    const text = encodeShareText(getShareText());
+    window.open(`https://wa.me/?text=${text}`, "_blank");
+  });
+}
+
+if (shareTwitter) {
+  shareTwitter.addEventListener("click", () => {
+    const text = encodeShareText(getShareText());
+    window.open(`https://x.com/intent/tweet?text=${text}`, "_blank");
+  });
+}
+
+if (shareFacebook) {
+  shareFacebook.addEventListener("click", () => {
+    const quote = encodeShareText(getShareText());
+    const u = encodeShareText(window.location.href);
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${u}&quote=${quote}`, "_blank");
+  });
+}
+
+if (shareTikTok) {
+  shareTikTok.addEventListener("click", () => {
+    const text = encodeShareText(getShareText());
+    window.open(`https://www.tiktok.com/upload?text=${text}`, "_blank");
+  });
+}
+
+if (copyVerse) {
+  copyVerse.addEventListener("click", async () => {
+    const text = getShareText();
+    if (navigator.clipboard) {
+      try {
+        await navigator.clipboard.writeText(text);
+        alert("Verse copied to clipboard!");
+      } catch (err) {
+        console.error("Copy failed:", err);
+      }
+    } else {
+      alert("Clipboard not supported.");
+    }
   });
 }
 
