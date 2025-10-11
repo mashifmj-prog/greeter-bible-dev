@@ -255,7 +255,7 @@ const versesAfternoon = [
   "James 1:2-3 - Count it all joy, my brothers, when you meet trials of various kinds, for you know that the testing of your faith produces steadfastness. (*Perseverance and faith*)",
   "Psalm 119:105 - Your word is a lamp to my feet and a light to my path. (*Faith*)",
   "2 Timothy 2:3 - Share in suffering as a good soldier of Christ Jesus. (*Perseverance*)",
-  "Psalm 18:1 - I love you, O Lord, my strength. (*Strength*)",
+  "Psalm 18:1 - I love you, O Lord, my strength. (*Strength*)"
 ];
 
 const versesEvening = [
@@ -416,25 +416,25 @@ const versesNight = [
   "Romans 8:38-39 - For I am sure that neither death nor life, nor angels nor rulers, nor things present nor things to come, will be able to separate us from the love of God. (*Trust and peace*)",
   "Psalm 27:5 - For he will hide me in his shelter in the day of trouble; he will conceal me under the cover of his tent. (*Protection*)",
   "Psalm 119:116 - Uphold me according to your promise, that I may live, and let me not be put to shame in my hope! (*Trust and peace*)",
-  "Isaiah 46:4 - Even to your old age I am he, and to gray hairs I will carry you. I have made, and I will bear; I will carry and will save. (*Protection and trust*)",
+  "Isaiah 46:4 - Even to your old age I am he, and to gray hairs I will carry you. I have made, and I will bear; I will carry and will save.",
   "Psalm 16:1 - Preserve me, O God, for in you I take refuge. (*Protection and trust*)",
-  "Philippians 1:6 - And I am sure of this, that he who began a good work in you will bring it to completion at the day of Jesus Christ. (*Trust*)",
-  "Psalm 91:16 - With long life I will satisfy him and show him my salvation. (*Protection and peace*)",
-  "Psalm 31:14-15 - But I trust in you, O Lord; I say, 'You are my God.' My times are in your hand. (*Trust*)",
-  "Isaiah 55:6 - Seek the Lord while he may be found; call upon him while he is near. (*Trust*)",
-  "Psalm 119:133 - Keep steady my steps according to your promise, and let no iniquity get dominion over me. (*Protection and trust*)",
-  "2 Corinthians 4:16 - So we do not lose heart. Though our outer self is wasting away, our inner self is being renewed day by day. (*Rest and strength*)",
-  "Psalm 34:4 - I sought the Lord, and he answered me and delivered me from all my fears. (*Protection and trust*)",
-  "Psalm 147:3 - He heals the brokenhearted and binds up their wounds. (*Peace*)",
-  "Psalm 119:105 - Your word is a lamp to my feet and a light to my path. (*Peace and trust*)",
-  "Isaiah 41:13 - For I, the Lord your God, hold your right hand; it is I who say to you, 'Fear not, I am the one who helps you.' (*Protection and trust*)",
+  "Philippians 1:6 - And I am sure of this, that he who began a good work in you will bring it to completion at the day of Jesus Christ. ",
+  "Psalm 91:16 - With long life I will satisfy him and show him my salvation.",
+  "Psalm 31:14-15 - But I trust in you, O Lord; I say, 'You are my God.' My times are in your hand.",
+  "Isaiah 55:6 - Seek the Lord while he may be found; call upon him while he is near. ",
+  "Psalm 119:133 - Keep steady my steps according to your promise, and let no iniquity get dominion over me.",
+  "2 Corinthians 4:16 - So we do not lose heart. Though our outer self is wasting away, our inner self is being renewed day by day.",
+  "Psalm 34:4 - I sought the Lord, and he answered me and delivered me from all my fears.",
+  "Psalm 147:3 - He heals the brokenhearted and binds up their wounds.",
+  "Psalm 119:105 - Your word is a lamp to my feet and a light to my path. ",
+  "Isaiah 41:13 - For I, the Lord your God, hold your right hand; it is I who say to you, 'Fear not, I am the one who helps you.'",
   "Psalm 31:5 - Into your hand I commit my spirit; you have redeemed me, O Lord, faithful God. (*Trust and peace*)",
-  "Ephesians 6:16 - In all circumstances take up the shield of faith, with which you can extinguish all the flaming darts of the evil one. (*Protection and trust*)",
+  "Ephesians 6:16 - In all circumstances take up the shield of faith, with which you can extinguish all the flaming darts of the evil one. ",
   "Psalm 119:114 - You are my hiding place and my shield; I hope in your word. (*Protection and trust*)",
-  "Psalm 33:18-19 - Behold, the eye of the Lord is on those who fear him, on those who hope in his steadfast love, that he may deliver their soul from death. (*Protection and trust*)",
-  "Psalm 116:7-8 - Return, O my soul, to your rest; for the Lord has dealt bountifully with you. For you have delivered my soul from death. (*Rest and peace*)",
-  "Psalm 121:3 - He will not let your foot be moved; he who keeps you will not slumber. (*Protection*)",
-  "Psalm 91:3 - For he will deliver you from the snare of the fowler and from the deadly pestilence. (*Protection*)"
+  "Psalm 33:18-19 - Behold, the eye of the Lord is on those who fear him, on those who hope in his steadfast love, that he may deliver their soul from death.",
+  "Psalm 116:7-8 - Return, O my soul, to your rest; for the Lord has dealt bountifully with you. For you have delivered my soul from death.",
+  "Psalm 121:3 - He will not let your foot be moved; he who keeps you will not slumber.",
+  "Psalm 91:3 - For he will deliver you from the snare of the fowler and from the deadly pestilence."
 ];
 
 const dailyQuotes = [
@@ -780,6 +780,7 @@ updateDate();
 setInterval(updateClock, 1000);
 setInterval(updateGreeting, 60000);
 setInterval(updateDate, 60000);
+
 
 
 
