@@ -1,89 +1,53 @@
 let userName = localStorage.getItem("userName") || "";
 let currentBackground = "";
-let verses = {};
-let versesWeekend = {};
-let dailyQuotes = [];
-let quoteExplanations = {};
+let verseArray = [];
 
-function getRandomVerses(array, count = 3) {
-  if (!array || array.length === 0) return [];
-  const shuffled = [...array].sort(() => 0.5 - Math.random());
-  return shuffled.slice(0, Math.min(count, array.length));
+// ---------------- Helper Functions ----------------
+function getRandomVerse(array) {
+  if (!array || array.length === 0) return "No verses available.";
+  const index = Math.floor(Math.random() * array.length);
+  return array[index];
 }
 
-function getDailyQuote() {
-  if (!dailyQuotes || dailyQuotes.length === 0) return "";
-  const today = new Date();
-  return dailyQuotes[today.getDate() % dailyQuotes.length];
-}
-
-async function loadData() {
-  const categories = ["morning", "day", "afternoon", "evening", "night"];
-  for (const cat of categories) {
-    const res = await fetch(`data/verses_${cat}.json`);
-    verses[cat] = await res.json();
+// ---------------- Lazy Load Verses ----------------
+async function loadVerses(category) {
+  try {
+    const res = await fetch(`data/verses_${category}.json`);
+    return await res.json();
+  } catch (err) {
+    console.error(`Error loading ${category} verses:`, err);
+    return [];
   }
-  const weekendRes = await fetch("data/verses_weekend.json");
-  versesWeekend = await weekendRes.json();
-
-  const quotesRes = await fetch("data/daily_quotes.json");
-  dailyQuotes = await quotesRes.json();
-
-  const explanationsRes = await fetch("data/daily_quote_explanations.json");
-  const data = await explanationsRes.json();
-  quoteExplanations = data.reduce((acc, item) => { acc[item.quote] = item.explanation; return acc; }, {});
-
-  updateGreeting();
-  displayDailyQuote(getDailyQuote());
-  updateShareLinks(getDailyQuote());
 }
 
-function updateGreeting() {
+// ---------------- Update Greeting & Verse ----------------
+async function updateGreeting() {
   const hour = new Date().getHours();
   const dayOfWeek = new Date().getDay();
-  let greeting, icon, verseArray, newBackground;
+  let greeting, icon, category, newBackground;
 
-  if (hour >= 5 && hour < 12) { greeting="Good Morning"; icon="🌅"; newBackground="morning"; }
-  else if (hour >= 12 && hour < 15) { greeting="Good Day"; icon="☀️"; newBackground="day"; }
-  else if (hour >= 15 && hour < 18) { greeting="Good Afternoon"; icon="🌤️"; newBackground="afternoon"; }
-  else if (hour >= 18 && hour < 22) { greeting="Good Evening"; icon="🌇"; newBackground="evening"; }
-  else { greeting="Good Night"; icon="🌙"; newBackground="night"; }
+  if (hour >= 5 && hour < 12) { greeting="Good Morning"; icon="🌅"; category="morning"; newBackground="morning"; }
+  else if (hour >= 12 && hour < 15) { greeting="Good Day"; icon="☀️"; category="day"; newBackground="day"; }
+  else if (hour >= 15 && hour < 18) { greeting="Good Afternoon"; icon="🌤️"; category="afternoon"; newBackground="afternoon"; }
+  else if (hour >= 18 && hour < 22) { greeting="Good Evening"; icon="🌇"; category="evening"; newBackground="evening"; }
+  else { greeting="Good Night"; icon="🌙"; category="night"; newBackground="night"; }
 
-  verseArray = (dayOfWeek===0 || dayOfWeek===6) ? versesWeekend[newBackground] || [] : verses[newBackground] || [];
+  // Weekend override
+  if (dayOfWeek === 0 || dayOfWeek === 6) { category="weekend"; }
+
+  // Lazy load only needed verses
+  verseArray = await loadVerses(category);
+  const randomVerse = getRandomVerse(verseArray);
 
   const displayGreeting = userName ? `${greeting}, ${userName}!` : greeting;
   document.getElementById("icon").innerText = icon;
   document.getElementById("text").innerText = displayGreeting;
+  document.getElementById("verse").innerText = randomVerse;
 
-  if (verseArray.length>0) {
-    const randomVerses = getRandomVerses(verseArray,3);
-    document.getElementById("verse").innerText = randomVerses.join("\n\n");
-  } else { document.getElementById("verse").innerText = "Loading verses..."; }
-
-  if (currentBackground !== newBackground) { document.body.className = newBackground; currentBackground=newBackground; }
+  if (currentBackground !== newBackground) { document.body.className = newBackground; currentBackground = newBackground; }
 }
 
-function displayDailyQuote(quote) {
-  document.getElementById("dailyQuote").innerText = quote;
-  document.getElementById("quoteExplanation").style.display = "none";
-}
-
-document.getElementById("explainQuoteBtn").addEventListener("click", ()=>{
-  const quote = document.getElementById("dailyQuote").innerText;
-  const explanation = quoteExplanations[quote] || "No explanation available.";
-  const expEl = document.getElementById("quoteExplanation");
-  expEl.style.display = (expEl.style.display==="none") ? "block" : "none";
-  expEl.innerText = explanation;
-});
-
-function updateShareLinks(quote){
-  const encodedQuote = encodeURIComponent(quote);
-  document.getElementById("shareFacebook").href = `https://www.facebook.com/sharer/sharer.php?u=https://yourapp.com&quote=${encodedQuote}`;
-  document.getElementById("shareWhatsApp").href = `https://wa.me/?text=${encodedQuote}`;
-  document.getElementById("shareTwitter").href = `https://twitter.com/intent/tweet?text=${encodedQuote}`;
-  document.getElementById("shareEmail").href = `mailto:?subject=Daily Quote&body=${encodedQuote}`;
-}
-
+// ---------------- Clock & Date ----------------
 function updateClock() {
   const now = new Date();
   const h = String(now.getHours()).padStart(2,'0');
@@ -98,22 +62,49 @@ function updateDate() {
   document.getElementById("date").innerText = now.toLocaleDateString("en-US", options);
 }
 
-document.getElementById("nameInput").addEventListener("input", e=>{
+// ---------------- Name Input Listeners ----------------
+document.getElementById("nameInput").addEventListener("input", e => {
   userName = e.target.value.trim();
   localStorage.setItem("userName", userName);
   updateGreeting();
 });
 
-document.getElementById("resetButton").addEventListener("click", ()=>{
+document.getElementById("resetButton").addEventListener("click", () => {
   localStorage.removeItem("userName");
   userName="";
   document.getElementById("nameInput").value="";
   updateGreeting();
 });
 
-loadData();
+// ---------------- Share Verse ----------------
+document.getElementById("shareVerseBtn").addEventListener("click", () => {
+  document.getElementById("shareMenu").style.display = "flex";
+});
+
+document.getElementById("closeShare").addEventListener("click", () => {
+  document.getElementById("shareMenu").style.display = "none";
+});
+
+function shareVerse(platform) {
+  const verseText = document.getElementById("verse").innerText;
+  const encoded = encodeURIComponent(verseText);
+
+  if (platform === "whatsapp") window.open(`https://wa.me/?text=${encoded}`, "_blank");
+  if (platform === "twitter") window.open(`https://twitter.com/intent/tweet?text=${encoded}`, "_blank");
+  if (platform === "facebook") window.open(`https://www.facebook.com/sharer/sharer.php?u=https://yourapp.com&quote=${encoded}`, "_blank");
+  if (platform === "copy") navigator.clipboard.writeText(verseText);
+}
+
+document.getElementById("shareWhatsApp").addEventListener("click", () => shareVerse("whatsapp"));
+document.getElementById("shareTwitter").addEventListener("click", () => shareVerse("twitter"));
+document.getElementById("shareFacebook").addEventListener("click", () => shareVerse("facebook"));
+document.getElementById("copyVerse").addEventListener("click", () => shareVerse("copy"));
+
+// ---------------- Initialize ----------------
+updateGreeting();
 updateClock();
 updateDate();
-setInterval(updateClock,1000);
-setInterval(updateGreeting,60000);
-setInterval(updateDate,60000);
+
+setInterval(updateClock, 1000);
+setInterval(updateGreeting, 60000);
+setInterval(updateDate, 60000);
