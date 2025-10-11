@@ -2,38 +2,33 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Greeter Bible Dev</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Greeter Bible App</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="greetingContainer">
-    <span id="icon"></span>
-    <span id="text"></span>
-    <div id="clock"></div>
-    <div id="date"></div>
-    <input type="text" id="nameInput" placeholder="Enter your name">
-    <button id="resetButton">Reset</button>
+  <div class="container">
+    <!-- Greeting -->
+    <h1 id="greeting">
+      <span id="icon"></span>
+      <span id="text"></span>
+    </h1>
+
+    <!-- Name input -->
+    <input type="text" id="nameInput" placeholder="Enter your name" />
+    <button id="resetButton">Reset Name</button>
+
+    <!-- Verse + Daily Quote -->
+    <p id="verse"></p>
+
+    <!-- Clock -->
+    <p id="clock"></p>
+
+    <!-- Date -->
+    <p id="date"></p>
   </div>
 
-  <div id="verseContainer">
-    <p id="verse">Loading verse...</p>
-    <button id="shareVerseBtn">Share Verse</button>
-    <div id="shareMenu" style="display:none;">
-      <button id="shareWhatsApp">WhatsApp</button>
-      <button id="shareTwitter">Twitter</button>
-      <button id="shareFacebook">Facebook</button>
-      <button id="copyVerse">Copy Verse</button>
-      <button id="shareMore">More</button>
-      <button id="closeShare">Close</button>
-    </div>
-  </div>
-
-  <div id="dailyQuoteContainer">
-    <p id="dailyQuote">Loading daily quote...</p>
-    <button id="explainQuoteBtn">Explain This Quote</button>
-    <p id="quoteExplanation" style="display:none;"></p>
-  </div>
-
+  <!-- Script -->
   <script src="script.js"></script>
 </body>
 </html>
