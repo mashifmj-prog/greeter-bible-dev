@@ -1,10 +1,11 @@
 body { font-family: Arial, sans-serif; text-align: center; margin: 20px; }
 #greetingContainer { margin-bottom: 20px; }
-#verseContainer { margin-top: 20px; }
-#shareVerseBtn { margin-top: 8px; padding: 6px 12px; background-color: #4CAF50; color: white; border: none; border-radius: 6px; cursor: pointer; }
-#shareVerseBtn:hover { background-color: #45a049; }
+#verseContainer, #dailyQuoteContainer { margin-top: 20px; }
+#shareVerseBtn, #explainQuoteBtn { margin-top: 8px; padding: 6px 12px; background-color: #4CAF50; color: white; border: none; border-radius: 6px; cursor: pointer; }
+#shareVerseBtn:hover, #explainQuoteBtn:hover { background-color: #45a049; }
 #shareMenu { margin-top: 8px; display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
 #shareMenu button { padding: 6px 10px; background-color: #008CBA; color: white; border: none; border-radius: 6px; cursor: pointer; }
 #shareMenu button:hover { background-color: #007B9E; }
-#verse { margin-top: 20px; white-space: pre-line; font-weight: bold; }
+#verse, #dailyQuote { margin-top: 20px; white-space: pre-line; font-weight: bold; }
+#quoteExplanation { margin-top: 8px; font-style: italic; color: #333; }
 @media screen and (max-width: 600px) { #shareMenu { flex-direction: column; gap: 6px; } }
