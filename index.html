@@ -1,15 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
-  <style>
-/* Temporary inline CSS to test */
-#verse {
-  background: red !important;
-  padding: 20px !important;
-  border: 5px solid yellow !important;
-}
-</style>
-  
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,43 +8,138 @@
 </head>
 <body>
   <div class="container">
-    <!-- Greeting -->
     <h1 id="greeting">
       <span id="icon"></span>
       <span id="text"></span>
     </h1>
-
-    <!-- Name input -->
+    
     <input type="text" id="nameInput" placeholder="Enter your name" />
     <button id="resetButton">Reset Name</button>
+    
+    <!-- Controls Container -->
+    <div class="controls-container">
+      <button id="shareButton" class="share-btn">Share Verse</button>
+      <button id="favoriteButton" class="favorite-btn">❤️</button>
+      <button id="nextVerseButton" class="next-btn">Next Verse</button>
+    </div>
 
-    <!-- Verse + Daily Quote -->
+    <!-- Category Filter -->
+    <div class="category-filter">
+      <select id="verseCategory">
+        <option value="all">All Categories</option>
+        <option value="hope">Hope & Encouragement</option>
+        <option value="peace">Peace & Comfort</option>
+        <option value="strength">Strength & Courage</option>
+        <option value="anxiety">Anxiety & Worry</option>
+        <option value="joy">Joy & Praise</option>
+        <option value="love">Love & Compassion</option>
+        <option value="faith">Faith & Trust</option>
+        <option value="guidance">Guidance & Wisdom</option>
+      </select>
+    </div>
+    
     <p id="verse"></p>
-    <button id="shareButton">Share</button>
-
-    <!-- Clock -->
     <p id="clock"></p>
 
-    <!-- Date -->
-    <p id="date"></p>
-  </div>
-
-  <!-- Share Modal -->
-  <div id="shareModal" class="modal">
-    <div class="modal-content">
-      <h3>Share Verse and Quote</h3>
-      <button id="shareDevice">Share (Device)</button>
-      <button id="shareWhatsApp">WhatsApp</button>
-      <button id="shareTwitter">Twitter</button>
-      <button id="shareFacebook">Facebook</button>
-      <button id="shareTikTok">TikTok</button>
-      <button id="copyVerse">Copy Verse</button>
-      <button id="closeModal">Close</button>
+    <!-- Favorites Section -->
+    <div id="favoritesSection" class="favorites-section hidden">
+      <h3>❤️ Favorite Verses</h3>
+      <div id="favoritesList" class="favorites-list"></div>
+      <button id="clearFavorites" class="clear-favorites-btn">Clear All Favorites</button>
     </div>
   </div>
 
-  <!-- Script -->
+  <!-- Sharing Modal -->
+  <div id="shareModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Share Inspiration</h2>
+        <button class="close-btn">&times;</button>
+      </div>
+      
+      <div class="share-options">
+        <button class="share-option-btn" id="shareImageBtn">
+          <span class="icon">🎨</span>
+          <span>Share as Image</span>
+        </button>
+        
+        <button class="share-option-btn" id="copyTextBtn">
+          <span class="icon">📝</span>
+          <span>Copy Verse</span>
+        </button>
+        
+        <button class="share-option-btn" id="closeModalBtn">
+          <span class="icon">❌</span>
+          <span>Close</span>
+        </button>
+      </div>
+
+      <!-- Image Sharing Options -->
+      <div id="imageOptions" class="image-options hidden">
+        <h3>Choose Theme</h3>
+        <div class="theme-grid">
+          <div class="theme-option" data-theme="minimal">
+            <div class="theme-preview minimal-theme"></div>
+            <span>Minimal White</span>
+          </div>
+          <div class="theme-option" data-theme="dark">
+            <div class="theme-preview dark-theme"></div>
+            <span>Dark Mode</span>
+          </div>
+          <div class="theme-option" data-theme="sunrise">
+            <div class="theme-preview sunrise-theme"></div>
+            <span>Sunrise</span>
+          </div>
+          <div class="theme-option" data-theme="ocean">
+            <div class="theme-preview ocean-theme"></div>
+            <span>Ocean</span>
+          </div>
+          <div class="theme-option" data-theme="sunset">
+            <div class="theme-preview sunset-theme"></div>
+            <span>Sunset</span>
+          </div>
+          <div class="theme-option" data-theme="night">
+            <div class="theme-preview night-theme"></div>
+            <span>Night Sky</span>
+          </div>
+        </div>
+        
+        <div class="attribution-option">
+          <label>
+            <input type="checkbox" id="includeAttribution" checked>
+            Include attribution link
+          </label>
+        </div>
+        
+        <div class="action-buttons">
+          <button id="previewImageBtn" class="action-btn secondary">Preview</button>
+          <button id="downloadImageBtn" class="action-btn primary">Download Image</button>
+        </div>
+        
+        <!-- Image Preview -->
+        <div id="imagePreview" class="image-preview hidden">
+          <h3>Preview</h3>
+          <canvas id="verseCanvas" width="600" height="400"></canvas>
+          <button id="shareImageFinalBtn" class="action-btn primary">Share Image</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Search Modal -->
+  <div id="searchModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Search Verses</h2>
+        <button class="close-btn">&times;</button>
+      </div>
+      <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search by keyword, book, or topic..." />
+        <div id="searchResults" class="search-results"></div>
+      </div>
+    </div>
+  </div>
+
   <script src="script.js"></script>
 </body>
 </html>
-
